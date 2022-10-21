@@ -11,15 +11,26 @@
   justify-self: center;
 }
 .loading {
-  border: dashed green 4px;
+  border: dashed green 3px;
   border-radius: 50%;
   animation: loading 2s infinite linear;
-  width: 7rem;
-  height: 7rem;
+  width: 4rem;
+  height: 4rem;
   color: green;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: small;
+}
+@-webkit-keyframes loading {
+  from {
+    -webkit-transform: rotate(0deg);
+    -webkit-transform-origin: center;
+  }
+  to {
+    -webkit-transform: rotate(3600deg);
+    -webkit-transform-origin: center;
+  }
 }
 @keyframes loading {
   from {

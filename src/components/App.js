@@ -21,9 +21,9 @@ function App() {
     pageNum,
     setPageNum,
     loading,
-    setLoading
+    setLoading,
   };
-  useEffect(() => {}, [pageNum, products, login]);
+  useEffect(() => {}, [pageNum, products, login, loading]);
   return (
     <ApplicationContext.Provider value={applicationState}>
       <Router>

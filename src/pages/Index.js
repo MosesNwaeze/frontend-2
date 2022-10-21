@@ -26,11 +26,12 @@ export default function Index() {
         },
       });
       const fetchProducts = await response.json();
+      console.log(fetchProducts);
       await setProducts(fetchProducts);
       setLoading(false);
     };
     handleProductRequest();
-  }, [login]);
+  });
 
   return (
     <main className="main">

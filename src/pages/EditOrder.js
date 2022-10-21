@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/editAccount.css";
-
+import ApplicationContext from "../components/ApplicationContext";
 function EditOrder() {
   const navigate = useNavigate();
   const app = JSON.parse(localStorage.getItem("user"));
   const [city, setCity] = useState(app.seller_city);
   const [state, setState] = useState(app.seller_state);
+  const applicationContext = useContext(ApplicationContext);
+  const { login } = applicationContext;
 
   useEffect(() => {
     document.title = `Update User Page`;
-    const login = localStorage.getItem("login");
     if (!login) {
       navigate("/login");
     }

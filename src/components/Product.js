@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../styles/productItem.css";
+import ApplicationContext from "./ApplicationContext";
 
 function Product({ product, empty }) {
+  const context = useContext(ApplicationContext);
+  const { setLoading } = context;
   if (!empty) {
     const { data } = product;
     return (
@@ -29,6 +32,7 @@ function Product({ product, empty }) {
       </div>
     );
   } else {
+    setLoading(false);
     return (
       <div className="empty-product">
         <h2>Products list is empty</h2>

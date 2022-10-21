@@ -8,7 +8,7 @@ function UserInputForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const applicationContext = useContext(ApplicationContext);
-  const { setLogin, loading, setLoading } = applicationContext;
+  const { setLogin } = applicationContext;
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -47,7 +47,6 @@ function UserInputForm() {
         localStorage.setItem("user", JSON.stringify(user));
         setLogin(true);
         localStorage.setItem("login", true);
-        setLoading(true);
         navigate("/");
       }
     } catch (error) {
