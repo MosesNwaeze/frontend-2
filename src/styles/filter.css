@@ -1,0 +1,23 @@
+.filter-container{
+    right: 2rem;
+    bottom: 2em;
+    display: flex;
+    align-self: flex-end;
+    margin: 1em 1em 1em 0;
+}
+.filter-btn{
+    outline: none;
+    width: 3rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+}
+.select{
+    padding: 4px;
+    border: solid #dddddd 1px;
+    border-radius: 4px;
+    font-size: small;
+}
+.select:checked{
+    border: solid #09e04a 1px;
+}

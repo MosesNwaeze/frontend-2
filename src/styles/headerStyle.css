@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  background-color: #ffffff;
+  color: #1e1e1e;
+  position: sticky;
+  top: 0;
+  border-bottom: solid 1px #b8c4c2;
+  height: 5rem;
+  z-index: 5;
+}
+.logo {
+  margin: 0 3rem;
+}
+.login {
+  position: absolute;
+  right: 3rem;
+}
+.login a {
+  text-decoration: none;
+  color: #9da5a4;
+}
+
+.logout{
+  color: red;
+  font-style: italic;
+  font-weight: 700;
+}
+.welcome-user{
+  color: blue;
+  margin-left: 1em;
+}
+
+.user-info{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1em;
+}
+
+.user-id{
+  color: blue;
+  font-style: italic;
+}
+
+@media screen and (max-width: 9800px){
+  .welcome-user{
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  .user-info{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .welcome-msg{
+    padding: 0;
+  }
+}
+
+@media screen and (max-width:600px) {
+ 
+.user-id{
+  display: none;
+} 
+}

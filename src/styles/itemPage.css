@@ -1,0 +1,36 @@
+.item-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  margin: 2em;
+}
+
+.item-info-list {
+  list-style: none;
+}
+
+.item-info-list li {
+  margin-bottom: 1em;
+}
+
+.delete-item{
+    display: flex;
+}
+
+.delete-item-btn{
+    width: 8rem;
+    height: 3rem;
+    color: black;
+    background: linear-gradient(rgb(211, 118, 118),rgb(233, 37, 37) );
+    font-weight: 500;
+    font-size: large;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.delete-item-btn:hover{
+    background-color: red;
+    color: white;
+
+}

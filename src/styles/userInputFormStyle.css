@@ -1,0 +1,73 @@
+.user-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border: solid 1px #dddddd;
+  border-radius: 2px;
+  padding: 1rem;
+}
+.user-form :first-child {
+  margin-top: 0.5rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.form-group label {
+  font-size: small;
+}
+.form-group input {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.774);
+  padding: 2px;
+  border-radius: 4px;
+  width: 20rem;
+  height: 1.3rem;
+  font-size: medium;
+  font-weight: 400;
+  outline: none;
+  border: 1.8px #dddddd solid;
+}
+.form-group input:focus {
+  box-shadow: 0 0 5px #615c5c;
+  color: rgba(0, 0, 0, 0.774);
+}
+.submit-button {
+  margin-bottom: 1rem;
+}
+.submit-button button {
+  width: 10rem;
+  height: 3rem;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: medium;
+  font-weight: 800;
+  border: 1.8px #dddddd solid;
+}
+.submit-button button:hover {
+  background: linear-gradient(#dddddd, #413f3f);
+  color: #ffffff;
+}
+.account-login-message {
+  font-size: larger;
+  font-weight: 900;
+}
+.unauth{
+  color: red;
+  font-size: small;
+  font-style: italic;
+}
+.hidden{
+  display: none;
+}

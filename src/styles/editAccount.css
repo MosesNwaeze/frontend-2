@@ -1,0 +1,46 @@
+.acct-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin: 2em;
+  border: solid 1px #dddddd;
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+}
+
+.acct-field {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+}
+.acct-field input {
+  width: 20rem;
+  height: 2rem;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: small;
+  font-weight: 500;
+}
+
+.acct-field span {
+  font-weight: 900;
+  font-size: large;
+}
+
+.update-record-btn {
+  height: 4rem;
+  outline: none;
+  background: linear-gradient(rgb(215, 226, 215), rgb(10, 236, 10));
+  border-radius: 5px;
+  border: solid 2px #dddddd;
+  padding: 10px;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: 800;
+}
+.update-record-btn:hover {
+  background: linear-gradient(rgb(10, 236, 10), rgb(215, 226, 215));
+}
