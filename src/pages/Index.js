@@ -6,12 +6,13 @@ import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
 import "../styles/mainStyle.css";
 import axios from "axios";
+import Loading from "../components/Loading";
 
 export default function Index() {
   const context = useContext(ApplicationContext);
   const { products, setProducts } = context;
   const navigate = useNavigate();
-  const { login } = context;
+  const { login, loading, setLoading } = context;
 
   useEffect(() => {
     document.title = `Welcome to Aina Anna Products Collections Page`;
@@ -26,12 +27,14 @@ export default function Index() {
       });
       const fetchProducts = await response.json();
       await setProducts(fetchProducts);
+      setLoading(false);
     };
     handleProductRequest();
   }, [login]);
 
   return (
     <main className="main">
+      {loading ? <Loading /> : ""}
       <Filter />
       <Products products={products} />
       <Pagination />

@@ -9,7 +9,7 @@ function App() {
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
   const [pageNum, setPageNum] = useState(1);
-  
+  const [loading, setLoading] = useState(true);
 
   const applicationState = {
     login,
@@ -20,6 +20,8 @@ function App() {
     setProducts,
     pageNum,
     setPageNum,
+    loading,
+    setLoading
   };
   useEffect(() => {}, [pageNum, products, login]);
   return (

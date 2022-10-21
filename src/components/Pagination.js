@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import ApplicationContext from "./ApplicationContext";
 import "../styles/pagination.css";
+import Loading from "./Loading";
 
 function Pagination() {
   const context = useContext(ApplicationContext);
-  const { products, setProducts, pageNum, setPageNum } = context;
+  const { products, setProducts, pageNum, setPageNum, loading, setLoading } =
+    context;
   const total = products.length > 0 ? products[0].total : 0;
   const offset = products.length > 0 ? products[0].offset : 0;
 
@@ -17,15 +19,16 @@ function Pagination() {
         {
           method: "get",
           headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("token"))
-            }`,
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`,
             "Content-Type": "application/json",
           },
         }
       );
       const response = await request.json();
       setProducts(response);
+      setLoading(false);
     } else {
       return;
     }
@@ -40,16 +43,17 @@ function Pagination() {
         {
           method: "get",
           headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("token"))
-            }`,
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`,
             "Content-Type": "application/json",
           },
         }
       );
-      console.log(JSON.parse(localStorage.getItem("token")))
+      console.log(JSON.parse(localStorage.getItem("token")));
       const response = await request.json();
       setProducts(response);
+      setLoading(false)
     } else {
       return;
     }
@@ -57,6 +61,7 @@ function Pagination() {
 
   return (
     <div className="pagination-container">
+      {loading ? <Loading /> : ""}
       <div className="pagination">
         <button className="gl" onClick={previous}>
           &#60;

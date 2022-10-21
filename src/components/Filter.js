@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import "../styles/filter.css";
 import ApplicationContext from "./ApplicationContext";
+import Loading from "./Loading";
 
 function Filter() {
   const [display, setDisplay] = useState("");
   const context = useContext(ApplicationContext);
-  const { pageNum, setProducts } = context;
+  const { pageNum, setProducts, loading, setLoading } = context;
 
   const handleSort = async (event) => {
     event.preventDefault();
@@ -24,15 +25,14 @@ function Filter() {
       {
         method: "get",
         headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("token"))
-          }`,
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
           "Content-Type": "application/json",
         },
       }
     );
     const response = await request.json();
     await setProducts(response);
+    setLoading(false);
   };
 
   const handleLimitSelect = async (event) => {
@@ -42,18 +42,18 @@ function Filter() {
       {
         method: "get",
         headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("token"))
-          }`,
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
           "Content-Type": "application/json",
         },
       }
     );
     const response = await request.json();
     setProducts(response);
+    setLoading(false);
   };
   return (
     <div className="filter-container">
+      {loading ? <Loading /> : ""}
       <div className="filter">
         Filter:{" "}
         <button onClick={handleSort} className="filter-btn">
