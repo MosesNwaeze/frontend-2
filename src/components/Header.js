@@ -7,7 +7,7 @@ import ApplicationContext from "./ApplicationContext";
 import logo from "../components/logoipsum-287.svg";
 
 function Header() {
-  const [state] = useContext(ApplicationContext);
+  const [state, dispatch] = useContext(ApplicationContext);
   const navigate = useNavigate();
   const login = state.login;
 
@@ -27,6 +27,11 @@ function Header() {
       localStorage.removeItem("login");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      await dispatch({ type: "LOGIN", payload: false });
+      await dispatch({ type: "USER", payload: {} });
+      await dispatch({ type: "PRODUCTS", payload: [] });
+      await dispatch({ type: "PAGE_NUM", payload: 1 });
+      await dispatch({ type: "LOADING", payload: true });
       navigate("/login");
     }
   };

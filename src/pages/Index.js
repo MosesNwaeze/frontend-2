@@ -5,7 +5,6 @@ import Products from "../components/Products";
 import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
 import "../styles/mainStyle.css";
-import axios from "axios";
 import Loading from "../components/Loading";
 
 export default function Index() {

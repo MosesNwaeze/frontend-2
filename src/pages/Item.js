@@ -4,7 +4,7 @@ import ApplicationContext from "../components/ApplicationContext";
 import "../styles/itemPage.css";
 
 function Item() {
-  const [state,dispatch] = useContext(ApplicationContext);
+  const [state] = useContext(ApplicationContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,7 +13,6 @@ function Item() {
   } = location;
   useEffect(() => {
     document.title = `Product item page`;
-    //const login = localStorage.getItem("login");
     if (!state.login) {
       navigate("/login");
     }
@@ -28,9 +27,9 @@ function Item() {
         {
           method: "delete",
           headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("token"))
-            }`,
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`,
           },
         }
       );
