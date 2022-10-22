@@ -24,7 +24,7 @@ const reducer = (initialStates, action) => {
       return { ...initialStates, products: action.payload };
     }
     case "PAGE_NUM": {
-      const update = initialStates.pageNum + action.payload;
+      const update = initialStates.pageNum + Number(action.payload);
       return { ...initialStates, pageNum: update };
     }
     case "LOADING": {
