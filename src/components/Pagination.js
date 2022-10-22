@@ -4,18 +4,18 @@ import "../styles/pagination.css";
 import Loading from "./Loading";
 
 function Pagination() {
-  const context = useContext(ApplicationContext);
-  const { products, setProducts, pageNum, setPageNum, loading, setLoading } =
-    context;
+  const [state, dispatch] = useContext(ApplicationContext);
+  const { products, pageNum, loading } = state;
   const total = products.length > 0 ? products[0].total : 0;
   const offset = products.length > 0 ? products[0].offset : 0;
 
   const previous = async (event) => {
     event.preventDefault();
     if (pageNum > 1) {
-      setPageNum((prev) => prev - 1);
+      dispatch(() => ({ type: "PAGE_NUM", payload: 1 }));
+
       const request = await fetch(
-        `http://localhost:3000/order_items?pages=${pageNum}`,
+        `http://localhost:5000/order_items?pages=${pageNum}`,
         {
           method: "get",
           headers: {
@@ -27,8 +27,8 @@ function Pagination() {
         }
       );
       const response = await request.json();
-      setProducts(response);
-      setLoading(false);
+      dispatch(() => ({ type: "PRODUCTS", payload: response }));
+      dispatch(() => ({ type: "LOADING", payload: false }));
     } else {
       return;
     }
@@ -37,9 +37,9 @@ function Pagination() {
   const next = async (event) => {
     event.preventDefault();
     if (Number(total) - Number(offset) > 0) {
-      setPageNum((prev) => prev + 1);
+      dispatch(() => ({ type: "PAGE_NUM", payload: 1 }));
       const request = await fetch(
-        `http://localhost:3000/order_items?pages=${pageNum}`,
+        `http://localhost:5000/order_items?pages=${pageNum}`,
         {
           method: "get",
           headers: {
@@ -50,10 +50,9 @@ function Pagination() {
           },
         }
       );
-      console.log(JSON.parse(localStorage.getItem("token")));
       const response = await request.json();
-      setProducts(response);
-      setLoading(false)
+      dispatch(() => ({ type: "PRODUCTS", payload: response }));
+      dispatch(() => ({ type: "LOADING", payload: false }));
     } else {
       return;
     }

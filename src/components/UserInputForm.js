@@ -7,8 +7,8 @@ import ApplicationContext from "./ApplicationContext";
 function UserInputForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const applicationContext = useContext(ApplicationContext);
-  const { setLogin } = applicationContext;
+  const [state, dispatch] = useContext(ApplicationContext);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -24,7 +24,7 @@ function UserInputForm() {
       setPassword("");
       setUsername("");
 
-      const request = await fetch(`http://localhost:3000/login`, {
+      const request = await fetch(`http://localhost:5000/login`, {
         method: "post",
         body: JSON.stringify(userAccountData),
         headers: {
@@ -45,7 +45,8 @@ function UserInputForm() {
         const token = response.token;
         localStorage.setItem("token", JSON.stringify(token));
         localStorage.setItem("user", JSON.stringify(user));
-        setLogin(true);
+        await dispatch({ type: "LOGIN", payload: true });
+        await dispatch({ type: "USER", payload: user });
         localStorage.setItem("login", true);
         navigate("/");
       }

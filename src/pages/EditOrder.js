@@ -2,31 +2,33 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/editAccount.css";
 import ApplicationContext from "../components/ApplicationContext";
+
 function EditOrder() {
   const navigate = useNavigate();
-  const app = JSON.parse(localStorage.getItem("user"));
-  const [city, setCity] = useState(app.seller_city);
-  const [state, setState] = useState(app.seller_state);
-  const applicationContext = useContext(ApplicationContext);
-  const { login } = applicationContext;
+  const [state, dispatch] = useContext(ApplicationContext);
+  const [city, setCity] = useState(state.user.seller_city);
+  const [myState, setState] = useState(state.user.seller_state);
+
+  const { login } = state;
 
   useEffect(() => {
     document.title = `Update User Page`;
     if (!login) {
       navigate("/login");
     }
-  }, [city, state]);
+  }, [city, myState]);
 
   const handleAccountUpdate = async (event) => {
     event.preventDefault();
-    if (city !== "" && state !== "") {
+    if (city !== "" && myState !== "") {
       const updatedAccount = {
         city,
-        state,
+        state: myState,
       };
       setCity("");
       setState("");
-      const request = await fetch(`http://localhost:3000/account`, {
+      console.log(updatedAccount);
+      const request = await fetch(`http://localhost:5000/account`, {
         method: "put",
         body: JSON.stringify(updatedAccount),
         headers: {
@@ -35,8 +37,10 @@ function EditOrder() {
         },
       });
       const response = await request.json();
+
       if (response) {
         localStorage.setItem("user", JSON.stringify(response));
+        await dispatch({ type: "USER", payload: response });
         window.alert("Record updated!");
         navigate("/");
       }
@@ -74,7 +78,7 @@ function EditOrder() {
           <span>State</span>
           <input
             type="text"
-            value={state}
+            value={myState}
             className="update-seller-input"
             onChange={handleChange}
             name="state"

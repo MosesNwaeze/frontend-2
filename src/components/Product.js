@@ -3,11 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import "../styles/productItem.css";
 import ApplicationContext from "./ApplicationContext";
 
-function Product({ product, empty }) {
-  const context = useContext(ApplicationContext);
-  const { setLoading } = context;
-  if (!empty) {
-    const { data } = product;
+function Product({ product }) {
+  const [state, dispatch] = useContext(ApplicationContext);
+
+  const { data } = product;
     return (
       <div className="products">
         {data.map((item, index) => (
@@ -24,6 +23,7 @@ function Product({ product, empty }) {
                   className="product-img"
                 />
                 <span className="cate">{item.product_category}</span>
+                <span className="date">{item.date}</span>
                 <span className="price">&#8358;{item.price}</span>
               </div>
             </Link>
@@ -31,14 +31,8 @@ function Product({ product, empty }) {
         ))}
       </div>
     );
-  } else {
-    setLoading(false);
-    return (
-      <div className="empty-product">
-        <h2>Products list is empty</h2>
-      </div>
-    );
-  }
+  
+  
 }
 
 export default Product;

@@ -1,12 +1,10 @@
 import React, { useState, useContext } from "react";
 import "../styles/filter.css";
 import ApplicationContext from "./ApplicationContext";
-import Loading from "./Loading";
 
 function Filter() {
   const [display, setDisplay] = useState("");
-  const context = useContext(ApplicationContext);
-  const { pageNum, setProducts, loading, setLoading } = context;
+  const [state, dispatch] = useContext(ApplicationContext);
 
   const handleSort = async (event) => {
     event.preventDefault();
@@ -21,7 +19,7 @@ function Filter() {
   const handleSortSelect = async (event) => {
     event.preventDefault();
     const request = await fetch(
-      `http://localhost:3000/order_items?pages=${pageNum}&sorting=${event.target.value}`,
+      `http://localhost:5000/order_items?pages=${state.pageNum}&sorting=${event.target.value}`,
       {
         method: "get",
         headers: {
@@ -31,14 +29,13 @@ function Filter() {
       }
     );
     const response = await request.json();
-    await setProducts(response);
-    setLoading(false);
+    await dispatch({ type: "PRODUCTS", payload: response });
   };
 
   const handleLimitSelect = async (event) => {
     event.preventDefault();
     const request = await fetch(
-      `http://localhost:3000/order_items?pages=${pageNum}&limit=${event.target.value}`,
+      `http://localhost:5000/order_items?pages=${state.pageNum}&limit=${event.target.value}`,
       {
         method: "get",
         headers: {
@@ -48,12 +45,11 @@ function Filter() {
       }
     );
     const response = await request.json();
-    setProducts(response);
-    setLoading(false);
+    await dispatch({ type: "PRODUCTS", payload: response });
+    await dispatch({ type: "LOADING", payload: true });
   };
   return (
     <div className="filter-container">
-      {loading ? <Loading /> : ""}
       <div className="filter">
         Filter:{" "}
         <button onClick={handleSort} className="filter-btn">

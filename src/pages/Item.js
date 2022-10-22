@@ -4,7 +4,7 @@ import ApplicationContext from "../components/ApplicationContext";
 import "../styles/itemPage.css";
 
 function Item() {
-  const context = useContext(ApplicationContext);
+  const [state,dispatch] = useContext(ApplicationContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,8 +13,8 @@ function Item() {
   } = location;
   useEffect(() => {
     document.title = `Product item page`;
-    const login = localStorage.getItem("login");
-    if (!login) {
+    //const login = localStorage.getItem("login");
+    if (!state.login) {
       navigate("/login");
     }
   });
@@ -24,7 +24,7 @@ function Item() {
     const confirm = window.confirm("Confirm delete request?");
     if (confirm) {
       const request = await fetch(
-        `http://localhost:3000/order_items/${data.id}`,
+        `http://localhost:5000/order_items/${data.id}`,
         {
           method: "delete",
           headers: {

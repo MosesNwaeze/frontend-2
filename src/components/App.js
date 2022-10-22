@@ -1,31 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Login from "../pages/Login";
 import ApplicationContext from "./ApplicationContext";
 
-function App() {
-  const [login, setLogin] = useState(localStorage.getItem("login"));
-  const [user, setUser] = useState({});
-  const [products, setProducts] = useState([]);
-  const [pageNum, setPageNum] = useState(1);
-  const [loading, setLoading] = useState(true);
+const initialStates = {
+  login: false,
+  user: {},
+  products: [],
+  pageNum: 1,
+  loading: true,
+};
 
-  const applicationState = {
-    login,
-    setLogin,
-    user,
-    setUser,
-    products,
-    setProducts,
-    pageNum,
-    setPageNum,
-    loading,
-    setLoading,
-  };
-  useEffect(() => {}, [pageNum, products, login, loading]);
+const reducer = (initialStates, action) => {
+  switch (action.type) {
+    case "LOGIN": {
+      return { ...initialStates, login: action.payload };
+    }
+    case "USER": {
+      return { ...initialStates, user: action.payload };
+    }
+    case "PRODUCTS": {
+      return { ...initialStates, products: action.payload };
+    }
+    case "PAGE_NUM": {
+      const update = initialStates.pageNum + action.payload;
+      return { ...initialStates, pageNum: update };
+    }
+    case "LOADING": {
+      return { ...initialStates, loading: action.payload };
+    }
+    default: {
+      return initialStates;
+    }
+  }
+};
+
+function App() {
+  const [states, dispatch] = useReducer(reducer, initialStates);
+
+  useEffect(() => {}, [initialStates]);
   return (
-    <ApplicationContext.Provider value={applicationState}>
+    <ApplicationContext.Provider value={[states, dispatch]}>
       <Router>
         <Routes>
           <Route element={<Layout />} path="*" />

@@ -9,10 +9,9 @@ import axios from "axios";
 import Loading from "../components/Loading";
 
 export default function Index() {
-  const context = useContext(ApplicationContext);
-  const { products, setProducts } = context;
+  const [state, dispatch] = useContext(ApplicationContext);
   const navigate = useNavigate();
-  const { login, loading, setLoading } = context;
+  const { login, loading } = state;
 
   useEffect(() => {
     document.title = `Welcome to Aina Anna Products Collections Page`;
@@ -20,24 +19,23 @@ export default function Index() {
       navigate("/login");
     }
     const handleProductRequest = async () => {
-      const response = await fetch(`http://localhost:3000/order_items`, {
+      const response = await fetch(`http://localhost:5000/order_items`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
       });
       const fetchProducts = await response.json();
-      console.log(fetchProducts);
-      await setProducts(fetchProducts);
-      setLoading(false);
+      await dispatch({ type: "PRODUCTS", payload: fetchProducts });
+      await dispatch({ type: "LOADING", payload: false });
     };
     handleProductRequest();
-  });
+  }, []);
 
   return (
     <main className="main">
       {loading ? <Loading /> : ""}
       <Filter />
-      <Products products={products} />
+      <Products />
       <Pagination />
     </main>
   );

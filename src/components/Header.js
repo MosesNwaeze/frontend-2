@@ -7,9 +7,9 @@ import ApplicationContext from "./ApplicationContext";
 import logo from "../components/logoipsum-287.svg";
 
 function Header() {
-  const applicationContext = useContext(ApplicationContext);
+  const [state] = useContext(ApplicationContext);
   const navigate = useNavigate();
-  const { login } = applicationContext;
+  const login = state.login;
 
   useEffect(() => {
     if (!login) {

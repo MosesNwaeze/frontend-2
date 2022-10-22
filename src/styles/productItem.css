@@ -32,6 +32,10 @@
   color: red;
   font-style: italic;
 }
+.date{
+  color: #8585f0;
+  font-style: italic;
+}
 
 @media (min-width: 550px) {
   .all-products {
