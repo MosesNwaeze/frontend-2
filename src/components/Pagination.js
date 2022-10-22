@@ -12,10 +12,10 @@ function Pagination() {
   const previous = async (event) => {
     event.preventDefault();
     if (pageNum > 1) {
-      dispatch(() => ({ type: "PAGE_NUM", payload: 1 }));
-
+      const _pageNum = Number(pageNum) - 1;
+      await dispatch(() => ({ type: "PAGE_NUM", payload: _pageNum }));
       const request = await fetch(
-        `http://localhost:5000/order_items?pages=${pageNum}`,
+        `http://localhost:5000/order_items?pages=${Number(pageNum)}`,
         {
           method: "get",
           headers: {
@@ -37,9 +37,10 @@ function Pagination() {
   const next = async (event) => {
     event.preventDefault();
     if (Number(total) - Number(offset) > 0) {
-      await dispatch({ type: "PAGE_NUM", payload: 1 });
+      const _pageNum = Number(pageNum) + 1;
+      await dispatch({ type: "PAGE_NUM", payload: _pageNum });
       const request = await fetch(
-        `http://localhost:5000/order_items?pages=${pageNum}`,
+        `http://localhost:5000/order_items?pages=${Number(pageNum)}`,
         {
           method: "get",
           headers: {
