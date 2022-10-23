@@ -17,7 +17,7 @@ function Pagination() {
       await dispatch({ type: "LOADING", payload: true });
 
       const request = await fetch(
-        `http://localhost:5000/order_items?pages=${Number(pageNum)}`,
+        `http://localhost:5000/order_items?pages=${Number(pageNum)}&prev=1`,
         {
           method: "get",
           headers: {
