@@ -13,7 +13,9 @@ function Pagination() {
     event.preventDefault();
     if (pageNum > 1) {
       const _pageNum = Number(pageNum) - 1;
-      await dispatch(() => ({ type: "PAGE_NUM", payload: _pageNum }));
+      await dispatch({ type: "PAGE_NUM", payload: _pageNum });
+      await dispatch({ type: "LOADING", payload: true });
+
       const request = await fetch(
         `http://localhost:5000/order_items?pages=${Number(pageNum)}`,
         {
@@ -27,8 +29,8 @@ function Pagination() {
         }
       );
       const response = await request.json();
-      await dispatch(() => ({ type: "PRODUCTS", payload: response }));
-      await dispatch(() => ({ type: "LOADING", payload: false }));
+      await dispatch({ type: "PRODUCTS", payload: response });
+      await dispatch({ type: "LOADING", payload: false });
     } else {
       return;
     }
@@ -39,6 +41,7 @@ function Pagination() {
     if (Number(total) - Number(offset) > 0) {
       const _pageNum = Number(pageNum) + 1;
       await dispatch({ type: "PAGE_NUM", payload: _pageNum });
+      await dispatch({ type: "LOADING", payload: true });
       const request = await fetch(
         `http://localhost:5000/order_items?pages=${Number(pageNum)}`,
         {
