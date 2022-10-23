@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ApplicationContext from "./ApplicationContext";
 import "../styles/pagination.css";
 import Loading from "./Loading";
@@ -6,6 +6,7 @@ import Loading from "./Loading";
 function Pagination() {
   const [state, dispatch] = useContext(ApplicationContext);
   const { products, pageNum, loading } = state;
+
   const total = products.length > 0 ? products[0].total : 0;
   const offset = products.length > 0 ? products[0].offset : 0;
 
@@ -15,7 +16,6 @@ function Pagination() {
       const _pageNum = Number(pageNum) - 1;
       await dispatch({ type: "PAGE_NUM", payload: _pageNum });
       await dispatch({ type: "LOADING", payload: true });
-
       const request = await fetch(
         `http://localhost:5000/order_items?pages=${Number(pageNum)}&prev=1`,
         {
@@ -38,12 +38,12 @@ function Pagination() {
 
   const next = async (event) => {
     event.preventDefault();
+    const id = Number(event.target.id) + 1
     if (Number(total) - Number(offset) > 0) {
-      const _pageNum = Number(pageNum) + 1;
-      await dispatch({ type: "PAGE_NUM", payload: _pageNum });
       await dispatch({ type: "LOADING", payload: true });
+      await dispatch({ type: "PAGE_NUM", payload: id });
       const request = await fetch(
-        `http://localhost:5000/order_items?pages=${Number(pageNum)}`,
+        `http://localhost:5000/order_items?pages=${id}`,
         {
           method: "get",
           headers: {
@@ -70,7 +70,7 @@ function Pagination() {
           &#60;
         </button>
         <span className="page-name">Page&nbsp;{pageNum}</span>
-        <button className="gl" onClick={next}>
+        <button className="gl" onClick={next} id={pageNum}>
           &#62;
         </button>
       </div>

@@ -35,7 +35,7 @@ function UserInputForm() {
       if (response.message === "Unauthorized") {
         const element = document.querySelector(".hidden");
         element.classList.remove("hidden");
-      } else {
+      } else if (response.message === "success") {
         const user = {
           id: response.id,
           seller_city: response.seller_city,
@@ -49,8 +49,17 @@ function UserInputForm() {
         await dispatch({ type: "USER", payload: user });
         localStorage.setItem("login", true);
         navigate("/");
+      } else {
+        const element = document.querySelector(".hidden");
+        element.textContent = "Internal Server Error";
+        element.classList.remove("hidden");
+        return;
       }
     } catch (error) {
+      const element = document.querySelector(".hidden");
+      element.textContent = "Internal Server Error";
+      element.classList.remove("hidden");
+      return;
       console.log(`E-UserInputForm-${error.message}`);
     }
   };

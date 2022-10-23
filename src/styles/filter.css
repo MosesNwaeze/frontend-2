@@ -11,6 +11,7 @@
     height: 2rem;
     background: transparent;
     border: none;
+    
 }
 .select{
     padding: 4px;
@@ -20,4 +21,12 @@
 }
 .select:checked{
     border: solid #09e04a 1px;
+}
+.focused{
+    background-color: #a9b4ac;
+    padding: 3px;
+    border-radius: 2px;
+}
+.limit{
+    margin-right: 3px;
 }

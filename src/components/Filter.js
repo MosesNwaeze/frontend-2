@@ -9,11 +9,15 @@ function Filter() {
   const handleSort = async (event) => {
     event.preventDefault();
     setDisplay("sort");
+    event.target.classList.add("focused");
+    document.querySelector(`.limit`).classList.remove("focused");
   };
 
   const handleLimit = async (event) => {
     event.preventDefault();
     setDisplay("limit");
+    event.target.classList.add("focused");
+    document.querySelector(`.sort`).classList.remove("focused");
   };
 
   const handleSortSelect = async (event) => {
@@ -30,6 +34,7 @@ function Filter() {
     );
     const response = await request.json();
     await dispatch({ type: "PRODUCTS", payload: response });
+    event.target.value = "--No sort option--";
   };
 
   const handleLimitSelect = async (event) => {
@@ -47,16 +52,17 @@ function Filter() {
     const response = await request.json();
     await dispatch({ type: "PRODUCTS", payload: response });
     await dispatch({ type: "LOADING", payload: true });
+    event.target.value = "--No limit option--";
   };
   return (
     <div className="filter-container">
       <div className="filter">
         Filter:{" "}
-        <button onClick={handleSort} className="filter-btn">
+        <button onClick={handleSort} className="filter-btn sort">
           Sort
         </button>{" "}
         |{" "}
-        <button onClick={handleLimit} className="filter-btn">
+        <button onClick={handleLimit} className="filter-btn limit">
           Limit
         </button>
         {display === "sort" ? (

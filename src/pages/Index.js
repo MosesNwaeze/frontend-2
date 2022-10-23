@@ -10,7 +10,7 @@ import Loading from "../components/Loading";
 export default function Index() {
   const [state, dispatch] = useContext(ApplicationContext);
   const navigate = useNavigate();
-  const { login, loading } = state;
+  const { login, loading,pageNum } = state;
 
   useEffect(() => {
     document.title = `Welcome to Aina Anna Products Collections Page`;
@@ -18,7 +18,7 @@ export default function Index() {
       navigate("/login");
     }
     const handleProductRequest = async () => {
-      const response = await fetch(`http://localhost:5000/order_items`, {
+      const response = await fetch(`http://localhost:5000/order_items?pages=${pageNum}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
