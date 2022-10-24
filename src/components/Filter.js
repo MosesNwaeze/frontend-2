@@ -22,6 +22,7 @@ function Filter() {
 
   const handleSortSelect = async (event) => {
     event.preventDefault();
+    await dispatch({ type: "LOADING", payload: true });
     const request = await fetch(
       `http://localhost:5000/order_items?pages=${state.pageNum}&sorting=${event.target.value}`,
       {
@@ -34,11 +35,13 @@ function Filter() {
     );
     const response = await request.json();
     await dispatch({ type: "PRODUCTS", payload: response });
+    await dispatch({ type: "LOADING", payload: false });
     event.target.value = "--No sort option--";
   };
 
   const handleLimitSelect = async (event) => {
     event.preventDefault();
+    await dispatch({ type: "LOADING", payload: true });
     const request = await fetch(
       `http://localhost:5000/order_items?pages=${state.pageNum}&limit=${event.target.value}`,
       {
@@ -51,7 +54,7 @@ function Filter() {
     );
     const response = await request.json();
     await dispatch({ type: "PRODUCTS", payload: response });
-    await dispatch({ type: "LOADING", payload: true });
+    await dispatch({ type: "LOADING", payload: false });
     event.target.value = "--No limit option--";
   };
   return (
