@@ -21,6 +21,12 @@ const reducer = (initialStates, action) => {
     case "LOADING": {
       return { ...initialStates, loading: action.payload };
     }
+    case "SORTING": {
+      return { ...initialStates, sorting: action.payload };
+    }
+    case "LIMIT": {
+      return { ...initialStates, limit: action.payload };
+    }
     default: {
       return initialStates;
     }
@@ -33,6 +39,8 @@ function App() {
     products: [],
     pageNum: 1,
     loading: true,
+    sorting: 'shipping_limit_date',
+    limit: ''
   };
 
   const [states, dispatch] = useReducer(reducer, initialStates);
@@ -42,6 +50,8 @@ function App() {
     states.loading,
     states.user,
     states.login,
+    states.sorting,
+    states.limit,
   ]);
   return (
     <ApplicationContext.Provider value={[states, dispatch]}>
